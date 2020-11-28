@@ -1,0 +1,1002 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="map"></div>
+<div id="instructions" style="display:none"></div>
+<div class="map-overlay" id="legend"></div>
+
+<!--Add a title and hook-->
+<div class="map-overlay" id="title">
+  <h2>Melbourne Tutor Map</h2>
+  <div id="info">
+  <p>Click a point for more information!</p>
+  </div>
+</div>
+
+<!--Add a sidebar-->
+<nav id="sidebar" style="background-image: url(images/bg_1.jpg);">
+	<div>
+		<button type="button" id="sidebarCollapse">
+		>
+		</button>
+	</div>
+	
+	<ul id='sidebar_btn_ul'>
+		<h1><a href="index.html" id="sidebarTitle" class="logo">Guide Interface<span>Melbourne City</span></a></h1>
+		<li>
+			<a id = 'restaurant_btn'> 
+				Restaurants 
+			</a>
+			<a id = 'place_btn'> 
+				Places 
+			</a>
+			<a id = 'transport_btn'> 
+				Transportation 
+			</a>
+			<a id = 'Navi_btn'> 
+				Navigation 
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<div id = 'restaurant_search_card'>
+	<button type="button" id= 'restaurant_search_card_close'>
+		x
+	</button>
+	<input type="text" placeholder="Please input the restaurant's keyword." id="restaurant_search_card_search_box" />
+	<button type="button" id= 'restaurant_search_card_searchbtn'>
+	</button>
+	
+	<div id = 'restaurant_search_tags'>
+		<h3> Tags </h3>
+	</div>
+	<div id = 'restaurant_filter'>
+		<h3> Filters </h3>
+	</div>
+</div>
+
+<div id = 'place_search_card'>
+	<button type="button" id= 'place_search_card_close'>
+		x
+	</button>
+	
+	<div id = 'place_search_tags'>
+  <h3> Place Them Tags </h3>
+	</div>
+  
+</div>
+
+<div id = 'transport_search_card'>
+	<button type="button" id= 'transport_search_card_close'>
+		x
+	</button>
+	
+	<div id = 'transport_search_tags'>
+  <h3> Transportation Tags </h3>
+	</div>
+  
+</div>
+
+
+<!-- ...the JavaScript code goes here... -->
+<script>
+// javaScript
+mapboxgl.accessToken = 'pk.eyJ1Ijoid2FuZ2psNzciLCJhIjoiY2tlbGlkcm8zMjFybTJ5bnY5NG9uaTBqNyJ9.Hgrbgzz2aJ3_kLLa-AryVw';
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/wangjl77/ckghtky5t0j4m19qhwzkdn6uh',
+  center: [144.96, -37.81],
+  zoom: 13
+});
+var canvas = map.getCanvasContainer();
+var userpos = [0,0]
+//Add a scale
+var scale = new mapboxgl.ScaleControl({
+	maxWidth: 80,
+	unit: 'metric' 
+});
+map.addControl(scale, "bottom-right");
+
+//Navigation Part
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+var navi_btn = document.getElementById('Navi_btn');
+navi_btn.onclick = function(){
+	var instructions = document.getElementById('instructions');
+	if ((instructions.style.display == 'none') || instructions.style.display == ''){
+		instructions.style.display = 'block';
+	}else{
+		instructions.style.display = 'none';
+		if (map.getLayer('end')){
+			map.setLayoutProperty('end', 'visibility', 'none');
+		}
+		if (map.getLayer('start')){
+			map.setLayoutProperty('start', 'visibility', 'none');
+		}
+		if (map.getLayer('route')){
+			map.setLayoutProperty('route', 'visibility', 'none');
+		}
+		userpos = [0,0]
+		var instructions = document.getElementById('instructions');
+		instructions.innerHTML = ''
+	}
+}
+
+map.on('load', function() {
+  map.addLayer({
+      id: 'melbgccsa',
+      type: 'fill',
+      source: {
+        type: 'vector',
+        url: 'mapbox://wangjl77.dnzb5tmo'
+      },
+      'source-layer': 'melbMask-4wqvv7',
+      'paint': {
+        'fill-color': '#e5f5f9',
+        'fill-opacity': 0.6
+    }
+  });
+});
+
+// create a function to make a directions request
+function getRoute(end) {
+  // make a directions request using cycling profile
+  // an arbitrary start will always be the same
+  // only the end or destination will change
+
+  var url = 'https://api.mapbox.com/directions/v5/mapbox/walking/' + userpos[0] + ',' + userpos[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
+  // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+  var req = new XMLHttpRequest();
+  req.open('GET', url, true);
+  req.onload = function() {
+    var json = JSON.parse(req.response);
+    var data = json.routes[0];
+    var route = data.geometry.coordinates
+    var geojson = {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: route
+      }
+    };
+    // if the route already exists on the map, reset it using setData
+    if (map.getSource('route')) {
+      map.getSource('route').setData(geojson);
+	  map.setLayoutProperty('route', 'visibility', 'visible');
+    } else { // otherwise, make a new request
+      map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates: geojson
+            }
+          }
+        },
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#3887be',
+          'line-width': 5,
+          'line-opacity': 0.75
+        }
+      });
+	  map.getSource('route').setData(geojson);
+    }
+    // add turn instructions here at the end
+  var instructions = document.getElementById('instructions');
+  var steps = data.legs[0].steps;
+
+  var tripInstructions = [];
+  for (var i = 0; i < steps.length; i++) {
+    tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
+    instructions.innerHTML = '<b>Walking instructions</b><br><span class="duration">Journey time: ' + Math.floor(data.duration / 60) + ' min </span>' + tripInstructions;
+  }
+};
+  req.send();
+}
+
+map.on('contextmenu', function(e){
+	var instructions = document.getElementById('instructions');
+	if ((instructions.style.display == 'none') || instructions.style.display == ''){return}
+	if (map.getLayer('end')){
+		map.setLayoutProperty('end', 'visibility', 'none');
+	}
+	if (map.getLayer('start')){
+		map.setLayoutProperty('start', 'visibility', 'none');
+	}
+	if (map.getLayer('route')){
+		map.setLayoutProperty('route', 'visibility', 'none');
+	}
+	userpos = [0,0]
+	var instructions = document.getElementById('instructions');
+	instructions.innerHTML = ''
+	
+});
+
+// Creates a new route based on where the user clicks on the map
+map.on('click', function(e) {
+  var instructions = document.getElementById('instructions');
+  if ((instructions.style.display == 'none') || instructions.style.display == ''){return}
+  if(userpos[0] == 0){
+	var coordsObj = e.lngLat;
+	  canvas.style.cursor = '';
+	  var coords = Object.keys(coordsObj).map(function(key) {
+		return coordsObj[key];
+	  });
+	userpos = coords;
+	var start = {
+		type: 'FeatureCollection',
+		features: [{
+		  type: 'Feature',
+		  properties: {},
+		  geometry: {
+			type: 'Point',
+			coordinates: coords
+		  }
+		}
+		]
+	  };
+	if (map.getLayer('start')){
+		map.getSource('start').setData(start);
+		map.setLayoutProperty('start', 'visibility', 'visible');
+	}else{
+		map.addLayer({
+			  id: 'start',
+			  type: 'circle',
+			  source: {
+				type: 'geojson',
+				data: {
+				  type: 'FeatureCollection',
+				  features: [{
+					type: 'Feature',
+					properties: {},
+					geometry: {
+					  type: 'Point',
+					  coordinates: coords
+					}
+				  }]
+				}
+			  },
+			  paint: {
+				'circle-radius': 10,
+				'circle-color': '#f30'
+			  }
+			});
+	}
+	  
+  }else{ 
+	  var coordsObj = e.lngLat;
+	  canvas.style.cursor = '';
+	  var coords = Object.keys(coordsObj).map(function(key) {
+		return coordsObj[key];
+	  });
+	  var end = {
+		type: 'FeatureCollection',
+		features: [{
+		  type: 'Feature',
+		  properties: {},
+		  geometry: {
+			type: 'Point',
+			coordinates: coords
+		  }
+		}
+		]
+	  };
+	  if (map.getLayer('end')) {
+		map.getSource('end').setData(end);
+		map.setLayoutProperty('end', 'visibility', 'visible');
+	  }else {
+		map.addLayer({
+		  id: 'end',
+		  type: 'circle',
+		  source: {
+			type: 'geojson',
+			data: {
+			  type: 'FeatureCollection',
+			  features: [{
+				type: 'Feature',
+				properties: {},
+				geometry: {
+				  type: 'Point',
+				  coordinates: coords
+				}
+			  }]
+			}
+		  },
+		  paint: {
+			'circle-radius': 10,
+			'circle-color': '#f30'
+		  }
+		});
+	  }
+	  getRoute(coords);
+	}
+
+});
+
+var currentMarkers=[];
+map.on('click', function(e) {
+	// remove markers 
+	if (currentMarkers!==null) {
+		for (var i = currentMarkers.length - 1; i >= 0; i--) {
+		  currentMarkers[i].remove();
+		}
+	}
+});
+
+var geolocate = new mapboxgl.GeolocateControl({
+  positionOptions: {
+    enableHighAccuracy: true
+  },
+    trackUserLocation: true
+});
+geolocate.on('geolocate', function (position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    //console.log('lat, lng', latitude, longitude);
+	userpos = [longitude, latitude]
+});
+map.addControl(geolocate, 'top-left');
+
+
+
+//hide sidebar
+var hide_sidebar = document.getElementById('sidebarCollapse');
+hide_sidebar.onclick = function(){
+	var sidebar = document.getElementById('sidebar_btn_ul');
+	var sidebarTitle = document.getElementById('sidebarTitle');
+
+	if (sidebar.style.display == 'none'){
+		sidebar.style.display = 'block';
+		sidebarTitle.style.display = 'block';
+	}else{
+		sidebar.style.display = 'none';
+		sidebarTitle.style.display = 'none';
+	}
+}
+
+// Restaurants part
+var show_restaurants_card = document.getElementById('restaurant_btn');
+show_restaurants_card.onclick = function(){
+	var card = document.getElementById('restaurant_search_card');
+	if ((card.style.display == 'none') || card.style.display == ''){
+		card.style.display = 'block';
+	}else{
+		card.style.display = 'none';
+	}
+}
+
+var hide_restaurants_card = document.getElementById('restaurant_search_card_close');
+hide_restaurants_card.onclick = function(){
+	var card = document.getElementById('restaurant_search_card');
+	card.style.display = 'none';
+}
+
+var restaurants_search = document.getElementById('restaurant_search_card_searchbtn');
+restaurants_search.onclick = function(){
+
+	var search_term = document.getElementById('restaurant_search_card_search_box').value;
+	var myurl = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=' + search_term + '&location=melbourne';
+	$.ajax({
+		url: myurl,
+        headers: {
+            'Authorization':'Bearer SDAOAY5yWXKAfHUdxFmDhZ9pG_-oV5HSfhmr1iv44a5gXpG1sWlVLBO3bGwVQQfwiJUL6dGWeluVuvLsj3vItKIZ8L8ofAwPVXzPu0_7I0qF5nQbp5aN8rPwWcd9X3Yx',
+			},
+        method: 'GET',
+        dataType: 'json',
+        success: function(data, status){ 
+			var businesses = JSON.parse(JSON.stringify(data))['businesses'];
+			if (businesses.length > 0){
+				businesses = businesses[0];
+				var name = JSON.stringify(businesses['name']).replace(/"/g, "");
+				var id = JSON.stringify(businesses['id']).replace(/"/g, "");
+				var img_url = JSON.stringify(businesses['image_url']);
+				var price = JSON.stringify(businesses['price']).replace(/"/g, "");
+				var review_count = JSON.stringify(businesses['review_count']);
+				var longitude = JSON.stringify(businesses['coordinates']['longitude']);
+				var latitude = JSON.stringify(businesses['coordinates']['latitude']);
+				var address_list = businesses['location']['display_address'];
+				var address = ''
+				if (address_list.length > 0){
+					address += JSON.stringify(address_list[0]).replace(/"/g, "");
+					for (let i = 1; i < address_list.length; i++) {
+						address += (', ' + JSON.stringify(address_list[i]).replace(/"/g, ""));
+					}
+				}
+				var categories = businesses['categories'];
+				var categories_txt = ''
+				var inntxt = ''
+				for (let i = 0; i < categories.length; i++) {
+					inntxt = JSON.stringify(categories[i]['title'])
+					inntxt = inntxt.replace(/"/g, "");
+					categories_txt += (inntxt + ' ');
+				}
+				var rating_stars = '';
+				if (businesses['rating'] != null){
+					for (let stars_num = 0; stars_num < 5; stars_num++){
+						if (stars_num < parseInt(JSON.stringify(businesses['rating']))){
+							rating_stars += "★";
+						}else{
+							rating_stars += "☆";
+						}
+					}
+				}
+				var rating = rating_stars;
+				var phone = JSON.stringify(businesses['phone']);
+				phone = phone.replace(/"/g, "");
+				var marker = new mapboxgl.Marker()
+				.setLngLat([longitude, latitude])
+				.addTo(map);
+				currentMarkers.push(marker);
+				
+				var popup = document.getElementById('popup-restaurant-card');
+				if (popup != null){
+					popup.parentNode.remove();
+				}
+				new mapboxgl.Popup()
+				.setLngLat([longitude, latitude])
+				.setHTML('<div id="popup-restaurant-card" query_id = "' + id + '"><div>')
+				.addTo(map);
+				document.getElementById('popup-restaurant-card').innerHTML += (
+					'<h1>' + name + '</h1>' +
+					'<div style = "display:flex"><p style = "font-size: 16px" id="popup-restaurant-content"><br>Rating: ' + rating + 
+					'<br>Price: ' + price + 
+					'<br>Category: ' + categories_txt + 
+					'<br>Address: ' + address + 
+					'<br>Phone: ' + phone + 
+					'<br>Review_count: ' + review_count +
+					'<br></p>' + 
+					'<img src=' + img_url +  ' width=50% height=100% style = "max-height:250px;"/></div>'
+					);
+				document.getElementById('popup-restaurant-card').style['height'] = "300px";
+				// document.getElementById('popup-restaurant-card').style['overflow-y'] = "scroll";
+				
+				var restaurant_id = JSON.stringify(businesses['id']).replace(/"/g, "");
+				var reviews_url = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/' + restaurant_id + '/reviews';
+				var current_id = id;
+				$.ajax({
+					url: reviews_url,
+					headers: {
+						'Authorization':'Bearer SDAOAY5yWXKAfHUdxFmDhZ9pG_-oV5HSfhmr1iv44a5gXpG1sWlVLBO3bGwVQQfwiJUL6dGWeluVuvLsj3vItKIZ8L8ofAwPVXzPu0_7I0qF5nQbp5aN8rPwWcd9X3Yx',
+						},
+					method: 'GET',
+					dataType: 'json',
+					success: function(data, status){ 
+						var reviews = JSON.parse(JSON.stringify(data))['reviews'];
+						var query_id = document.getElementById('popup-restaurant-card').getAttribute("query_id");
+						if ((reviews.length > 0) && (query_id == current_id)){
+							var review_url = JSON.stringify(reviews[0]['url']).replace(/"/g, "");;
+							document.getElementById('popup-restaurant-content').innerHTML += (
+								'<a style = "font-size: 16px" href =' + review_url +' target="_blank">Check Reviews' + '</a>' );					
+						}else{
+							console.log("No results.");
+						}
+
+					},
+					error: function(errorThrown){
+						console.log(errorThrown);
+					}
+				}, current_id);
+				
+				map.flyTo({
+					center: [longitude, latitude]
+				});
+				
+			}else{
+				alert("No results. Please check the keyword again!");
+			}
+
+        },
+		error: function(errorThrown){
+			alert('Error!');
+			console.log(errorThrown);
+		}
+	});	
+}
+
+// Add restaurants type buttons
+var restaurants_search_tags = document.getElementById('restaurant_search_tags');
+var restaurants_type_str =  'japanese, australian, british, turkish, greek, french, chinese, malaysian, spanish, mexican, korean, vietnamese, italian, thai, bakeries, icecream, sushi, coffee, steak, pizza, buffets, ramen, seafood, bars, salad, vegetarian, burgers, fishnchips'
+var restaurants_type_list = restaurants_type_str.split(", ");
+var statusNames = restaurants_type_list;
+var statusColors = ['#e32636', '#5d8aa8', '#efdecd', '#ffbf00', '#9966cc', '#a4c639', '#cd9575', '#915c83', '#00ffff', '#7fffd4', '#008000', '#ff9966', '#6e7f80', '#007fff', '#89cff0', '#faf0be', '#8a2be2', '#006a4e', '#cb4154', '#ff007f', '#08e8de', '#f4bbff', '#cd7f32', '#e97451', '#536872', '#ffff99', '#cd5c5c', '#0047ab'];
+
+map.on('load', function() {
+  // the code for adding a layer goes in here
+  for (let i = 0; i < statusNames.length; i++) {
+    let statusName = statusNames[i];
+    let statusColor = statusColors[i];
+    map.addLayer({
+      // the data for which layer and what style goes in here
+      id: statusName,
+      type: 'circle',
+      source: {
+        type: 'vector',
+        url: 'mapbox://wangjl77.aanr2dcb'
+      },
+      'source-layer': 'yelp_restaurants-5l63nr',
+      "paint": {
+        "circle-color": statusColor,
+		"circle-radius": 5
+      },
+      'filter': ['in', 'categories_alias', statusName]
+    });
+	
+	map.setLayoutProperty(statusName, 'visibility', 'none');
+
+	// Change the icon to a pointer icon when you mouse over a building
+	map.on('mouseenter', statusName, function() {
+	  map.getCanvas().style.cursor = 'pointer';
+	});
+
+	// Change it back to a pan icon when it leaves.
+	map.on('mouseleave', statusName, function() {
+	  map.getCanvas().style.cursor = '';
+	});
+	
+	map.on('click', statusName, function(e) {
+		var name = e.features[0].properties['name'];
+		var img_url = e.features[0].properties['image_url'];
+		var price = e.features[0].properties['price'];
+		var category = e.features[0].properties['categories_title'];
+		var address = e.features[0].properties['address'];
+		var rating_stars = '';
+		if (e.features[0].properties['rating'] != null){
+			for (let stars_num = 0; stars_num < 5; stars_num++){
+				if (stars_num < parseInt(e.features[0].properties['rating'])){
+					rating_stars += "★";
+				}else{
+					rating_stars += "☆";
+				}
+			}
+		}
+		var rating = rating_stars;
+		var phone = e.features[0].properties['phone'];
+		if (phone != ''){
+			phone = '+' + phone 
+		}
+		var review_count = e.features[0].properties['review_count'];
+		var popup = document.getElementById('popup-restaurant-card');
+		if (popup != null){
+			popup.parentNode.remove();
+		}
+		
+		
+		new mapboxgl.Popup().setLngLat(e.lngLat)
+		.setHTML('<div id="popup-restaurant-card" query_id = "' + e.features[0].properties['id'] + '"><div>')
+		.addTo(map);
+		document.getElementById('popup-restaurant-card').innerHTML += (
+					'<h1>' + name + '</h1>' + 
+					'<div style = "display:flex">' +
+					'<p style = "font-size: 16px" id="popup-restaurant-content"><br>Rating: ' + rating + 
+					'<br>Price: ' + price + 
+					'<br>Category: ' + category + 
+					'<br>Address: ' + address + 
+					'<br>Phone: ' + phone + 
+					'<br>Review_count: ' + review_count +
+					'<br></p>' + 
+					'<img src=\"' + img_url +  '\" width=50% height=100% style = "max-height:250px;"/></div>'
+					);
+		document.getElementById('popup-restaurant-card').style['height'] = "300px";
+		// document.getElementById('popup-restaurant-card').style['overflow-y'] = "scroll";
+		var reviews_url = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/' + e.features[0].properties['id'] + '/reviews';
+		var current_id = e.features[0].properties['id'];
+		
+		$.ajax({
+			url: reviews_url,
+			headers: {
+				'Authorization':'Bearer SDAOAY5yWXKAfHUdxFmDhZ9pG_-oV5HSfhmr1iv44a5gXpG1sWlVLBO3bGwVQQfwiJUL6dGWeluVuvLsj3vItKIZ8L8ofAwPVXzPu0_7I0qF5nQbp5aN8rPwWcd9X3Yx',
+				},
+			method: 'GET',
+			dataType: 'json',
+			success: function(data, status){ 
+				var reviews = JSON.parse(JSON.stringify(data))['reviews'];
+				var query_id = document.getElementById('popup-restaurant-card').getAttribute("query_id");
+				if ((reviews.length > 0) && (query_id == current_id)){
+					var review_url = JSON.stringify(reviews[0]['url']).replace(/"/g, "");;
+					document.getElementById('popup-restaurant-content').innerHTML += (
+						'<a style = "font-size: 16px" href =' + review_url +' target="_blank">Check Reviews' + '</a>' );					
+				}else{
+					console.log("No results.");
+				}
+
+			},
+			error: function(errorThrown){
+				console.log(errorThrown);
+			}
+		}, current_id);
+	});
+	};
+
+});
+// Add restaurants btns
+for (var i = 0; i < restaurants_type_list.length; i++) {
+	var tag_btn = document.createElement('button');
+	var legend = document.getElementById("legend");
+	tag_btn.innerHTML = restaurants_type_list[i];
+	tag_btn.onclick = function(){
+		// Change button color.
+		var color = this.style.background; 
+		// Show the corresponding layer.
+		let visibility = map.getLayoutProperty(this.innerHTML, 'visibility');
+		if (visibility === 'visible') {
+			map.setLayoutProperty(this.innerHTML, 'visibility', 'none');
+			this.style.background = "#2f89fc";
+			let legend_name = 'legend-' + this.innerHTML;
+			document.getElementById(legend_name).remove();
+			if (legend.childElementCount == 0){
+				legend.style.display = 'none';
+			}
+
+		} else {
+			map.setLayoutProperty(this.innerHTML, 'visibility', 'visible');
+			this.style.background = "#19d54e";
+			// Set legends.
+			let item = document.createElement('div');
+			item.id = 'legend-' + this.innerHTML;
+			let key = document.createElement('span');
+			key.className = 'legend-key';
+			let legend_color_index = restaurants_type_list.indexOf(this.innerHTML);
+			key.style.backgroundColor = statusColors[legend_color_index];
+
+			let value = document.createElement('span');
+			value.innerHTML = this.innerHTML;
+			item.appendChild(key);
+			item.appendChild(value);
+			legend.appendChild(item);
+			if (legend.style.display == 'none'){
+				legend.style.display = 'block';
+			}
+		}
+		
+	}
+	restaurants_search_tags.appendChild(tag_btn);
+}
+
+// Restaurants Filter
+var restaurants_filter = document.getElementById('restaurant_filter');
+var filter_name = ['highly rated', 'plenty of comments']
+var filter_list = [['>=', 'rating', 4], ['>', 'review_count', 10]]
+for (let i = 0; i < filter_name.length; i++){
+	var filter_btn = document.createElement('button');
+	filter_btn.innerHTML = filter_name[i];
+	filter_btn.setAttribute("filter_index",i);
+	filter_btn.onclick = function(){
+		// Change button color.
+		var color = this.style.background; 
+		var filter_content = filter_list[this.getAttribute('filter_index')];
+		var filter_keyword = filter_content[1];
+
+		if (color === 'rgb(25, 213, 78)') {
+			this.style.background = "#2f89fc";
+			for(let j = 0; j < restaurants_type_list.length; j++){
+				var current_filter = map.getFilter(restaurants_type_list[j]);
+				current_filter.forEach(function(item, index){
+					if (item.indexOf(filter_keyword) != -1){
+						current_filter.splice(index, 1);
+						return;
+					}
+				});	
+				map.setFilter(restaurants_type_list[j], current_filter);	
+			};
+			
+		} else {
+			this.style.background = "#19d54e";
+			for(let j = 0; j < restaurants_type_list.length; j++){
+				var current_filter = map.getFilter(restaurants_type_list[j]);
+				if(current_filter[0] == 'all'){
+					current_filter.push(filter_content);
+					map.setFilter(restaurants_type_list[j], current_filter);
+				}else{
+					map.setFilter(restaurants_type_list[j], ['all', current_filter, filter_content]);
+				}
+			};
+		}
+	}
+	restaurants_filter.appendChild(filter_btn);
+}
+
+
+//show transports submenu
+var show_transports_card = document.getElementById('transport_btn');
+show_transports_card.onclick = function(){
+	var card = document.getElementById('transport_search_card');
+	if ((card.style.display == 'none') || card.style.display == ''){
+		card.style.display = 'block';
+	}else{
+		card.style.display = 'none';
+	}
+}
+
+var hide_transports_card = document.getElementById('transport_search_card_close');
+hide_transports_card.onclick = function(){
+	var card = document.getElementById('transport_search_card');
+	card.style.display = 'none';
+}
+
+//show places submenu
+var show_places_card = document.getElementById('place_btn');
+show_places_card.onclick = function(){
+	var card = document.getElementById('place_search_card');
+	if ((card.style.display == 'none') || card.style.display == ''){
+		card.style.display = 'block';
+	}else{
+		card.style.display = 'none';
+	}
+}
+
+var hide_places_card = document.getElementById('place_search_card_close');
+hide_places_card.onclick = function(){
+	var card = document.getElementById('place_search_card');
+	card.style.display = 'none';
+}
+ 
+// Add places type buttons
+var places_search_tags = document.getElementById('place_search_tags');
+var theme_str =  'Community Use, Education Centre, Place Of Worship, Health Services, Retail, Leisure Or Recreation';
+var theme_list = theme_str.split(", ");
+var placeNames = theme_list;
+var placeColors = ['#FF3030', '#4876FF', '#836FFF', '#00FF00', '#FFB6C1', '#FFA500'];
+
+// Add transports type buttons
+var transports_search_tags = document.getElementById('transport_search_tags');
+var transport_str = 'Melbourne CBD, East Melbourne, West Melbourne, Melbourne, Southbank, Docklands, Flemington and Kensington, North Melbourne, Parkville, Carlton, Carlton North, Port Melbourne, City Circle Tram';
+var transport_list = transport_str.split(", ");
+var transportNames = transport_list;
+var transportColors = ['#0A0A0A','#0F0F0F','#141414','#1A1A1A','#1F1F1F','#242424','#292929','#2E2E2E','#333333','#383838','#363636','#303030','#1C1C1C'];
+
+map.on('load', function() {
+  // the code for adding a layer goes in here
+  for (let i = 0; i < transportNames.length; i++) {
+      let transportName = transportNames[i];
+      let transportColor = transportColors[i];
+    
+    map.addLayer({
+      // the data for which layer and what style goes in here
+      id: transportName,
+      type: 'circle',
+      source: {
+      type: 'vector',
+      url: 'mapbox://wangjl77.7dz3afnf'
+      },
+      'source-layer': 'city_tram_V1-3vitf5',
+      "paint": {
+      "circle-color": transportColor,
+		  "circle-radius": 5
+      },
+      'filter': ['==', 'Suburb', transportName]
+    });
+    
+    
+    map.setLayoutProperty(transportName, 'visibility', 'none');
+    //map.setLayoutProperty('cityRoute', 'visibility', 'none');
+
+//     //mouse function  
+// 	  map.on('mousemove', function(e) {
+//     // the code from steps 5-10 below MUST go in here
+//     // build features
+//     let features = map.queryRenderedFeatures(e.point, {
+//     layers: [transportName]
+//     });
+
+//     //This code looks to see whether the Tutorinfo variable has a length of greater than 0 
+//     if (features.length > 0) {
+//         document.getElementById('info').innerHTML =
+//           '<p>' + features[0].properties.StopName + '</em></p>';
+//     } else {
+//         document.getElementById('info').innerHTML = '<p>Hover over a shaded point for details.</p>';
+//     }
+//     });//mouse move 
+      
+    map.on('mouseenter', transportName, function() {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+        // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', transportName, function() {
+        map.getCanvas().style.cursor = '';
+    });
+
+    map.on('click', transportName, function(e) {
+    	new mapboxgl.Popup()
+      // the script in step 3 below must go in here 
+      .setLngLat(e.lngLat)
+      .setHTML('StopName: ' + e.features[0].properties.StopName + '<br>' + 'Suburb: ' + e.features[0].properties.Suburb + '<br>' + 'Posecode: ' + e.features[0].properties.Posecode  + '<br>' + 'Ticketzone: ' + e.features[0].properties.Ticketzone)
+      .addTo(map);
+  	});//map.on.click
+    
+  }//circle
+    
+    // the code for adding a layer goes in here
+    for (let i = 0; i < placeNames.length; i++) {
+      let placeName = placeNames[i];
+      let placeColor = placeColors[i];
+    
+    map.addLayer({
+      // the data for which layer and what style goes in here
+      id: placeName,
+      type: 'circle',
+      source: {
+      type: 'vector',
+      url: 'mapbox://wangjl77.17wt8fzp'
+      },
+      'source-layer': 'Tour_Information_New-1vcd99',
+      "paint": {
+        "circle-color": placeColor,
+		"circle-radius": 5
+      },
+      'filter': ['==', 'Theme', placeName]
+    });
+    
+    map.setLayoutProperty(placeName, 'visibility', 'none');
+
+//     //mouse function  
+// 	  map.on('mousemove', function(e) {
+//     // the code from steps 5-10 below MUST go in here
+//     // build features
+//     let features = map.queryRenderedFeatures(e.point, {
+//     layers: [placeName]
+//     });
+
+//     //This code looks to see whether the Tutorinfo variable has a length of greater than 0 
+//     if (features.length > 0) {
+//         document.getElementById('info').innerHTML =
+//           '<p>' + features[0].properties.FeatureName + '</em></p>';
+//         //'<p>' + features[0].properties.SubTheme + 
+//         //'<p><em>' + features[0].properties.Address + 
+//         //'<p><em>' + features[0].properties.FeatureName + 
+//         //'<p><em>' + features[0].properties.OpenTime+ 
+//         //'<p><em>' + features[0].properties.Website+ 
+//         //'<p><em>' + features[0].properties.PhoneNumber+'</em></p>';
+//     } else {
+//         document.getElementById('info').innerHTML = '<p>Hover over a shaded point for details.</p>';
+//     }
+//     });//mouse move
+      
+    map.on('mouseenter', placeName, function() {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+        // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', placeName, function() {
+        map.getCanvas().style.cursor = '';
+    });
+
+    map.on('click', placeName, function(e) {
+    	new mapboxgl.Popup()
+      // the script in step 3 below must go in here 
+      .setLngLat(e.lngLat)
+      .setHTML('Name: ' + e.features[0].properties.FeatureName + '<br>' + 'SubTheme: ' + e.features[0].properties.SubTheme + '<br>' + 'Address: ' + e.features[0].properties.Address + '<br>' + 'Open Time: ' + '<br>' + e.features[0].properties.OpenTime + '<br>' + 'Phone Number: ' + e.features[0].properties.PhoneNumber 
+      )
+      .addTo(map);
+  	});//map.on.click
+		
+	}//circle
+    
+	 
+});//map.on load
+
+
+// Hide the legend
+var legend = document.getElementById("legend");
+legend.style.display = 'none';
+
+//tag button
+    for (var i = 0; i < transport_list.length; i++) {
+			var tag_btn = document.createElement('button');
+			var legend = document.getElementById("legend");
+			tag_btn.innerHTML = transport_list[i]; //tagname
+			tag_btn.onclick = function(){
+			// Change button color.
+			var color = this.style.background; 
+			// Show the corresponding layer.
+			let visibility = map.getLayoutProperty(this.innerHTML, 'visibility');
+			if (visibility === 'visible') {
+				map.setLayoutProperty(this.innerHTML, 'visibility', 'none');
+        //map.setLayoutProperty('cityRoute', 'visibility', 'none'); //hide cityroute
+				this.style.background = "#2f89fc";
+				let legend_name = 'legend-' + this.innerHTML;
+				document.getElementById(legend_name).remove();
+				if (legend.childElementCount == 0){
+					legend.style.display = 'none';
+				}
+
+			} 
+      else {
+				map.setLayoutProperty(this.innerHTML, 'visibility', 'visible');
+        //map.setLayoutProperty('cityRoute', 'visibility', 'visible'); //show cityroute
+				this.style.background = "#19d54e";
+				// Set legends.
+				let item = document.createElement('div');
+				item.id = 'legend-' + this.innerHTML;
+				let key = document.createElement('span');
+				key.className = 'legend-key';
+				let legend_color_index = transport_list.indexOf(this.innerHTML);
+				key.style.backgroundColor = transportColors[legend_color_index];
+
+				let value = document.createElement('span');
+				value.innerHTML = this.innerHTML;
+				item.appendChild(key);
+				item.appendChild(value);
+				legend.appendChild(item);
+				if (legend.style.display == 'none'){
+				legend.style.display = 'block';
+				}
+			}
+		
+			}
+			transports_search_tags.appendChild(tag_btn);
+		}
+    
+    //tag button
+    for (var i = 0; i < theme_list.length; i++) {
+			var tag_btn = document.createElement('button');
+			var legend = document.getElementById("legend");
+			tag_btn.innerHTML = theme_list[i];
+			tag_btn.onclick = function(){
+			// Change button color.
+			var color = this.style.background; 
+			// Show the corresponding layer.
+			let visibility = map.getLayoutProperty(this.innerHTML, 'visibility');
+			if (visibility === 'visible') {
+				map.setLayoutProperty(this.innerHTML, 'visibility', 'none');
+				this.style.background = "#2f89fc";
+				let legend_name = 'legend-' + this.innerHTML;
+				document.getElementById(legend_name).remove();
+				if (legend.childElementCount == 0){
+					legend.style.display = 'none';
+				}
+
+			} 
+      else {
+				map.setLayoutProperty(this.innerHTML, 'visibility', 'visible');
+				this.style.background = "#19d54e";
+				// Set legends.
+				let item = document.createElement('div');
+				item.id = 'legend-' + this.innerHTML;
+				let key = document.createElement('span');
+				key.className = 'legend-key';
+				let legend_color_index = theme_list.indexOf(this.innerHTML);
+				key.style.backgroundColor = placeColors[legend_color_index];
+
+				let value = document.createElement('span');
+				value.innerHTML = this.innerHTML;
+				item.appendChild(key);
+				item.appendChild(value);
+				legend.appendChild(item);
+				if (legend.style.display == 'none'){
+				legend.style.display = 'block';
+				}
+			}
+		
+			}
+			places_search_tags.appendChild(tag_btn);
+		}
+    
+    
+
+</script>
+
+</body>
+</html>

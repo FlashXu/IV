@@ -1,0 +1,2 @@
+countries: japanese, australian, british, turkish, greek, french, chinese, malaysian, spanish, mexican, korean, vietnamese, italian, thai
+food_type: bakeries, icecream, sushi, coffee, steak, pizza, buffets, ramen, seafood, bars, salad, vegetarian, burgers, fishnchips

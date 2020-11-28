@@ -1,0 +1,530 @@
+PLAYER,TEAM,POSITION(S)
+Marques Bolden,Cavaliers,C
+Max Strus,Bulls,SG
+Tyler Zeller,Spurs,C
+J.P. Macura,Cavaliers,SG
+Jamal Crawford,Nets,SG
+Dusty Hannahs,Grizzlies,SG
+Henry Ellenson,Nets,PF
+Matt Mooney,Cavaliers,SG
+James Harden,Rockets,"PG, SG"
+Kawhi Leonard,Clippers,SF
+Giannis Antetokounmpo,Bucks,"SF, PF"
+Jeremiah Martin,Nets,PG
+Cameron Payne,Suns,PG
+Naz Mitrou-Long,Pacers,"SG, SF"
+LeBron James,Lakers,"PG, SF, PF"
+Eric Mika,Kings,PF
+Paul George,Clippers,"SG, SF"
+Charles Brown Jr.,Hawks,SF
+Luka Doncic,Mavericks,"PG, SG, SF"
+Damian Lillard,Trail Blazers,PG
+Karl-Anthony Towns,Timberwolves,C
+Rudy Gobert,Jazz,C
+Jimmy Butler,Heat,"SG, SF"
+Frank Mason,Bucks,PG
+David Nwaba,Rockets,SG
+Anthony Davis,Lakers,PF
+Shaquille Harrison,Bulls,"PG, SG"
+Dewan Hernandez,Raptors,PF
+Nikola Jokic,Nuggets,C
+John Konchar,Grizzlies,SG
+Jayson Tatum,Celtics,SF
+Mfiondu Kabengele,Clippers,C
+Stephen Curry,Warriors,PG
+Jrue Holiday,Pelicans,SG
+Joel Embiid,76ers,C
+Garrison Mathews,Wizards,SG
+Khris Middleton,Bucks,SF
+Kemba Walker,Celtics,PG
+Ivica Zubac,Clippers,C
+Patrick Beverley,Clippers,PG
+Chris Paul,Thunder,PG
+Christian Wood,Pistons,"PF, C"
+Michael Carter-Williams,Magic,PG
+Montrezl Harrell,Clippers,C
+Kyle Lowry,Raptors,PG
+Chris Boucher,Raptors,"PF, C"
+Jonathan Isaac,Magic,"SF, PF"
+Jusuf Nurkic,Trail Blazers,C
+George Hill,Bucks,"PG, SG"
+Josh Magette,Magic,PG
+Jakob Poeltl,Spurs,C
+Luka Samanic,Spurs,PF
+Patty Mills,Spurs,"PG, SG"
+Trae Young,Hawks,PG
+Kadeem Allen,Knicks,SG
+Donte DiVincenzo,Bucks,"PG, SG"
+Alex Caruso,Lakers,"PG, SG"
+Andre Roberson,Thunder,"SG, SF"
+Derrick Favors,Pelicans,"PF, C"
+Derrick White,Spurs,"PG, SG"
+Hassan Whiteside,Trail Blazers,C
+Clint Capela,Hawks,C
+Danilo Gallinari,Thunder,"SF, PF"
+Caleb Martin,Hornets,SF
+Johnathan Motley,Clippers,"SF, PF"
+Josh Jackson,Grizzlies,"SG, SF"
+Stanley Johnson,Raptors,SF
+Boban Marjanovic,Mavericks,C
+Mitchell Robinson,Knicks,C
+Robert Williams III,Celtics,C
+Enes Kanter,Celtics,C
+Duncan Robinson,Heat,"SG, SF"
+Fred VanVleet,Raptors,SG
+Kyrie Irving,Nets,PG
+Marcus Smart,Celtics,SG
+Danny Green,Lakers,"SG, SF"
+JaVale McGee,Lakers,C
+Will Barton,Nuggets,"SG, SF"
+Eric Bledsoe,Bucks,PG
+Tony Bradley,Jazz,"PF, C"
+Kris Dunn,Bulls,"PG, SG"
+Marc Gasol,Raptors,C
+Rondae Hollis-Jefferson,Raptors,"SF, PF"
+Cody Martin,Hornets,SG
+Jordan McLaughlin,Timberwolves,PG
+Jonas Valanciunas,Grizzlies,C
+Nikola Vucevic,Magic,C
+John Henson,Pistons,C
+Brook Lopez,Bucks,C
+Adam Mokoka,Bulls,SG
+Ben Simmons,76ers,PG
+Steven Adams,Thunder,C
+Gorgui Dieng,Grizzlies,"PF, C"
+Keldon Johnson,Spurs,SF
+Davis Bertans,Wizards,"SF, PF"
+Jalen Brunson,Mavericks,PG
+Tim Hardaway Jr.,Mavericks,"SG, SF"
+Derrick Jones Jr.,Heat,"SF, PF"
+De'Anthony Melton,Grizzlies,"PG, SG"
+Jarrett Allen,Nets,C
+Ryan Broekhoff,76ers,"SG, SF"
+Justin Holiday,Pacers,"SG, SF"
+Royce O'Neale,Jazz,"SG, SF"
+Kristaps Porzingis,Mavericks,PF
+Luc Mbah a Moute,Rockets,PF
+Otto Porter Jr.,Bulls,SF
+Sindarius Thornwell,Pelicans,SG
+Devin Booker,Suns,SG
+Terence Davis,Raptors,"PG, SG"
+Deandre Ayton,Suns,C
+Nicolas Batum,Hornets,"SG, SF"
+Nemanja Bjelica,Kings,"SF, PF"
+Mikal Bridges,Suns,"SG, SF, PF"
+Jamal Murray,Nuggets,"PG, SG"
+Robert Covington,Rockets,"SF, PF"
+Caris LeVert,Nets,"SG, SF"
+Paul Millsap,Nuggets,PF
+Yuta Watanabe,Grizzlies,SF
+Bradley Beal,Wizards,SG
+Ricky Rubio,Suns,PG
+Matt Thomas,Raptors,SG
+Denzel Valentine,Bulls,"SG, SF"
+Bam Adebayo,Heat,C
+Aaron Holiday,Pacers,"PG, SG"
+CJ Miles,Wizards,SG
+Domantas Sabonis,Pacers,"PF, C"
+Daniel Theis,Celtics,C
+Devonte' Graham,Hornets,PG
+Matisse Thybulle,76ers,SF
+Paul Watson,Raptors,SG
+Zion Williamson,Pelicans,"PF, C"
+Jared Dudley,Lakers,PF
+Al Horford,76ers,"PF, C"
+Michael Porter Jr.,Nuggets,"SF, PF"
+Pascal Siakam,Raptors,PF
+Bogdan Bogdanovic,Kings,SG
+Chris Chiozza,Nets,PG
+Spencer Dinwiddie,Nets,"PG, SG"
+Wesley Matthews,Bucks,"SG, SF"
+Naz Reid,Timberwolves,C
+Ryan Arcidiacono,Bulls,PG
+Mo Bamba,Magic,C
+Corey Brewer,Kings,SF
+Jaylen Brown,Celtics,SG
+Trey Burke,Mavericks,PG
+Jordan Clarkson,Jazz,SG
+Richaun Holmes,Kings,"PF, C"
+Dwight Howard,Lakers,C
+Joe Ingles,Jazz,SF
+Larry Nance Jr.,Cavaliers,"PF, C"
+Raul Neto,76ers,PG
+Elfrid Payton,Knicks,PG
+T.J. Warren,Pacers,SF
+OG Anunoby,Raptors,SF
+Gordon Hayward,Celtics,SF
+Dennis Schroder,Thunder,"PG, SG"
+J.J. Barea,Mavericks,PG
+Isaac Bonga,Wizards,"PG, SG, SF"
+Brandon Clarke,Grizzlies,"PF, C"
+Timothe Luwawu-Cabarrot,Nets,SG
+Victor Oladipo,Pacers,SG
+Delon Wright,Mavericks,PG
+Malcolm Brogdon,Pacers,PG
+Bruno Caboclo,Rockets,"SG, SF"
+Matthew Dellavedova,Cavaliers,"PG, SG"
+Luguentz Dort,Thunder,"SG, SF"
+Dorian Finney-Smith,Mavericks,"SF, PF"
+Shai Gilgeous-Alexander,Thunder,"PG, SG, SF"
+Willie Cauley-Stein,Mavericks,C
+Jeremy Lamb,Pacers,SG
+TJ Leaf,Pacers,PF
+Josh Richardson,76ers,"SG, SF"
+Evan Fournier,Magic,"SG, SF"
+CJ McCollum,Trail Blazers,SG
+Malcolm Miller,Raptors,SF
+Dwight Powell,Mavericks,"PF, C"
+Jevon Carter,Suns,"PG, SG"
+Zach Collins,Trail Blazers,"PF, C"
+De'Aaron Fox,Kings,PG
+Brandon Ingram,Pelicans,"SG, SF"
+Reggie Jackson,Clippers,PG
+Donovan Mitchell,Jazz,"PG, SG"
+Marcus Morris Sr.,Clippers,PF
+Mychal Mulder,Warriors,SG
+Mike Muscala,Thunder,"PF, C"
+Nerlens Noel,Thunder,C
+Ersan Ilyasova,Bucks,PF
+Derrick Rose,Pistons,"PG, SG"
+Goran Dragic,Heat,PG
+Tobias Harris,76ers,"SF, PF"
+Damion Lee,Warriors,"SG, SF"
+Jalen McDaniels,Hornets,PF
+Kelly Olynyk,Heat,"PF, C"
+Gary Trent Jr.,Trail Blazers,"SG, SF"
+Kenrich Williams,Pelicans,SF
+Yogi Ferrell,Kings,"PG, SG"
+Josh Hart,Pelicans,SF
+Rodney Hood,Trail Blazers,"SG, SF"
+Norman Powell,Raptors,"SG, SF"
+Tomas Satoransky,Bulls,"PG, SG"
+LaMarcus Aldridge,Spurs,"PF, C"
+Bruce Brown,Pistons,SG
+DeMar DeRozan,Spurs,"SG, SF, PF"
+DeAndre Jordan,Nets,C
+Juwan Morgan,Jazz,PF
+Kelly Oubre Jr.,Suns,SF
+Seth Curry,Mavericks,"PG, SG"
+Furkan Korkmaz,76ers,SG
+Alex Len,Kings,C
+Kevin Love,Cavaliers,"PF, C"
+Malik Newman,Cavaliers,SG
+DeMarre Carroll,Rockets,"SF, PF"
+Wayne Ellington,Knicks,SG
+Draymond Green,Warriors,PF
+Kyle Korver,Bucks,"SG, PF"
+Zach LaVine,Bulls,"PG, SG"
+Ian Mahinmi,Wizards,C
+Jabari Parker,Kings,PF
+Patrick Patterson,Clippers,"SF, PF, C"
+JaKarr Sampson,Pacers,SF
+Kyle Anderson,Grizzlies,SF
+Kent Bazemore,Kings,"SG, SF"
+Alec Burks,76ers,SG
+Rudy Gay,Spurs,PF
+Danuel House Jr.,Rockets,"SF, PF"
+Cameron Johnson,Suns,"SF, PF"
+T.J. McConnell,Pacers,PG
+Terrence Ross,Magic,"SG, SF"
+P.J. Tucker,Rockets,"SF, PF, C"
+John Collins,Hawks,PF
+Maxi Kleber,Mavericks,PF
+Trevor Ariza,Trail Blazers,"SF, PF"
+Tyus Jones,Grizzlies,PG
+Cory Joseph,Kings,PG
+Svi Mykhailiuk,Pistons,"SG, SF"
+Marquese Chriss,Warriors,PF
+DaQuan Jeffries,Kings,SF
+Lonzo Ball,Pelicans,PG
+Jordan Bell,Cavaliers,"PF, C"
+Kentavious Caldwell-Pope,Lakers,SG
+Jae Crowder,Heat,"SF, PF"
+Langston Galloway,Pistons,"PG, SG"
+Isaiah Hartenstein,Rockets,C
+Buddy Hield,Kings,SG
+Luke Kennard,Pistons,SG
+Dejounte Murray,Spurs,PG
+JJ Redick,Pelicans,SG
+Moritz Wagner,Wizards,"PF, C"
+Lou Williams,Clippers,"PG, SG"
+Bojan Bogdanovic,Jazz,PF
+Mike Conley,Jazz,PG
+Pat Connaughton,Bucks,SG
+Andre Drummond,Cavaliers,C
+Romeo Langford,Celtics,"SG, SF"
+Shabazz Napier,Wizards,"PG, SG"
+Jaylen Nowell,Timberwolves,SG
+D'Angelo Russell,Timberwolves,"PG, SG"
+Myles Turner,Pacers,C
+Russell Westbrook,Rockets,PG
+Avery Bradley,Lakers,SG
+Cheick Diallo,Suns,PF
+Gary Harris,Nuggets,SG
+Joe Harris,Nets,"SG, SF"
+Juancho Hernangomez,Timberwolves,PF
+Justise Winslow,Grizzlies,"PG, SG, SF"
+Aron Baynes,Suns,C
+Thomas Bryant,Wizards,C
+Ben McLemore,Rockets,SG
+Kendrick Nunn,Heat,"PG, SG"
+Dario Saric,Suns,"SF, PF"
+Dillon Brooks,Grizzlies,"SG, SF"
+Vlatko Cancar,Nuggets,SF
+Aaron Gordon,Magic,PF
+Andre Iguodala,Heat,"SG, SF"
+Brad Wanamaker,Celtics,"PG, SG"
+D.J. Augustin,Magic,PG
+Torrey Craig,Nuggets,SF
+Skal Labissiere,Hawks,"PF, C"
+Ja Morant,Grizzlies,PG
+Georges Niang,Jazz,PF
+Mason Plumlee,Nuggets,C
+Julius Randle,Knicks,PF
+Thabo Sefolosha,Rockets,SF
+Garrett Temple,Nets,"SG, SF"
+Tim Frazier,Pistons,PG
+Serge Ibaka,Raptors,"PF, C"
+Louis King,Pistons,SF
+Miye Oni,Jazz,SG
+Tristan Thompson,Cavaliers,"PF, C"
+Grant Williams,Celtics,PF
+Grayson Allen,Grizzlies,SG
+Justin Anderson,Nets,SF
+Harrison Barnes,Kings,"SF, PF"
+Khem Birch,Magic,C
+Reggie Bullock,Knicks,"SG, SF"
+Hamidou Diallo,Thunder,"SG, SF"
+James Ennis III,Magic,SF
+E'Twaun Moore,Pelicans,SG
+Monte Morris,Nuggets,PG
+Semi Ojeleye,Celtics,PF
+Mike Scott,76ers,"SF, PF"
+Sterling Brown,Bucks,"SG, SF"
+Troy Brown Jr.,Wizards,"SG, SF"
+Jaren Jackson Jr.,Grizzlies,"PF, C"
+Courtney Lee,Mavericks,SG
+Doug McDermott,Pacers,"SF, PF"
+Noah Vonleh,Nuggets,PF
+Marvin Williams,Bucks,PF
+Jeff Green,Rockets,PF
+Cedi Osman,Cavaliers,SF
+Alen Smailagic,Warriors,"PF, C"
+Derrick Walton Jr.,Pistons,PG
+Andrew Wiggins,Warriors,SF
+DeAndre' Bembry,Hawks,"SG, SF"
+Damyean Dotson,Knicks,SG
+Dante Exum,Cavaliers,"PG, SG"
+Daniel Gafford,Bulls,C
+Austin Rivers,Rockets,"PG, SG"
+Cody Zeller,Hornets,"PF, C"
+Kostas Antetokounmpo,Lakers,"SF, PF"
+Malik Beasley,Timberwolves,"SG, SF"
+Tyler Herro,Heat,SG
+Dzanan Musa,Nets,"SG, SF, PF"
+Josh Okogie,Timberwolves,"SG, SF"
+Wilson Chandler,Nets,SF
+Alize Johnson,Pacers,"SF, PF"
+Tony Snell,Pistons,"SG, SF"
+Nicolas Claxton,Nets,C
+Dewayne Dedmon,Hawks,C
+Markelle Fultz,Magic,"PG, SG"
+JaMychal Green,Clippers,PF
+Wes Iwundu,Magic,SF
+Rodions Kurucs,Nets,"SF, PF"
+Kyle Kuzma,Lakers,PF
+Terance Mann,Clippers,"SG, SF"
+Landry Shamet,Clippers,"SG, SF"
+Thanasis Antetokounmpo,Bucks,SF
+Jake Layman,Timberwolves,SF
+Terry Rozier,Hornets,"PG, SG"
+Juan Toscano-Anderson,Warriors,SF
+Thaddeus Young,Bulls,PF
+Darius Bazley,Thunder,"SF, PF"
+Solomon Hill,Heat,SF
+James Johnson,Timberwolves,"SF, PF"
+Meyers Leonard,Heat,C
+Trey Lyles,Spurs,PF
+Frank Ntilikina,Knicks,PG
+Taurean Prince,Nets,"SF, PF"
+Jarrod Uthoff,Wizards,PF
+Jerami Grant,Nuggets,"SF, PF"
+Willy Hernangomez,Hornets,C
+Justin James,Kings,SG
+Daryl Macon,Heat,SG
+Al-Farouq Aminu,Magic,PF
+Anthony Tolliver,Grizzlies,PF
+Nigel Williams-Goss,Jazz,PG
+Maurice Harkless,Knicks,SF
+Jordan McRae,Pistons,"PG, SG"
+Coby White,Bulls,"PG, SG"
+Wendell Carter Jr.,Bulls,C
+PJ Dozier,Nuggets,"PG, SG"
+Frank Kaminsky,Suns,PF
+Kyle O'Quinn,76ers,C
+Chandler Hutchison,Bulls,"SF, PF"
+Shake Milton,76ers,"PG, SG"
+Ish Smith,Wizards,PG
+Taj Gibson,Knicks,"PF, C"
+Brandon Goodwin,Hawks,PG
+Kevin Huerter,Hawks,SG
+Robin Lopez,Bucks,C
+Bobby Portis,Knicks,"PF, C"
+Thon Maker,Pistons,"PF, C"
+Lauri Markkanen,Bulls,PF
+Anzejs Pasecniks,Wizards,C
+Cam Reddish,Hawks,SF
+P.J. Washington,Hornets,"PF, C"
+Bismack Biyombo,Hornets,C
+Oshae Brissett,Raptors,SF
+Troy Daniels,Nuggets,"SG, PF"
+Javonte Green,Celtics,SF
+Nicolo Melli,Pelicans,"PF, C"
+Theo Pinson,Knicks,SG
+Jeff Teague,Hawks,PG
+Rayjon Tucker,Jazz,SF
+Miles Bridges,Hornets,"SF, PF"
+Chris Clemons,Rockets,PG
+Treveon Graham,Hawks,"SG, SF"
+Nassir Little,Trail Blazers,"SF, PF"
+Jahlil Okafor,Pelicans,C
+Glenn Robinson III,76ers,"SG, SF"
+Ante Zizic,Cavaliers,C
+Wenyen Gabriel,Trail Blazers,PF
+Blake Griffin,Pistons,PF
+Gary Payton II,Wizards,PG
+Justin Robinson,Wizards,PG
+Collin Sexton,Cavaliers,"PG, SG"
+Iman Shumpert,Nets,SG
+Nickeil Alexander-Walker,Pelicans,SG
+Marco Belinelli,Spurs,SG
+Bryn Forbes,Spurs,SG
+Jaxson Hayes,Pelicans,C
+Jerome Robinson,Wizards,"SG, SF"
+Lonnie Walker IV,Spurs,"SG, SF"
+Dragan Bender,Warriors,PF
+Rajon Rondo,Lakers,PG
+Gary Clark,Magic,PF
+Justin Jackson,Mavericks,SF
+Markieff Morris,Lakers,PF
+Abdel Nader,Thunder,SF
+Bruno Fernando,Hawks,C
+Edmond Sumner,Pacers,SG
+Tyson Chandler,Rockets,C
+Jarrett Culver,Timberwolves,"PG, SG, SF"
+Eric Gordon,Rockets,"SG, SF"
+De'Andre Hunter,Hawks,SF
+Goga Bitadze,Pacers,C
+Marvin Bagley III,Kings,"PF, C"
+Vince Carter,Hawks,PF
+Tyler Johnson,Nets,"PG, SG"
+Carmelo Anthony,Trail Blazers,"SF, PF"
+Terrance Ferguson,Thunder,"SG, SF"
+Jaylen Hoard,Trail Blazers,PF
+Patrick McCaw,Raptors,"SG, SF"
+Kevin Porter Jr.,Cavaliers,SG
+RJ Barrett,Knicks,"SG, SF"
+Keita Bates-Diop,Nuggets,"SF, PF"
+Damian Jones,Hawks,C
+Quinn Cook,Lakers,PG
+Drew Eubanks,Spurs,"PF, C"
+Elie Okobo,Suns,PG
+Brian Bowen II,Pacers,SF
+Ky Bowman,Warriors,PG
+Marko Guduric,Grizzlies,"SG, SF"
+Amile Jefferson,Magic,PF
+Ty Jerome,Suns,"PG, SG"
+Chris Silva,Heat,PF
+Malik Monk,Hornets,SG
+Eric Paschall,Warriors,"SF, PF"
+Omari Spellman,Timberwolves,PF
+Dion Waiters,Lakers,SG
+Jerian Grant,Wizards,PG
+Chimezie Metu,Spurs,"PF, C"
+Kevon Looney,Warriors,"PF, C"
+Emmanuel Mudiay,Jazz,PG
+Tyrone Wallace,Hawks,SG
+Ed Davis,Jazz,C
+Talen Horton-Tucker,Lakers,SF
+Jordan Poole,Warriors,"PG, SG"
+Kyle Alexander,Heat,PF
+Jarrell Brantley,Jazz,PF
+Amir Coffey,Clippers,"PG, SG"
+Mario Hezonja,Trail Blazers,"SF, PF"
+Kelan Martin,Timberwolves,SF
+Rodney McGruder,Clippers,"PG, SG"
+Evan Turner,Timberwolves,"PG, SG, SF"
+Michael Kidd-Gilchrist,Mavericks,"SF, PF"
+Rui Hachimura,Wizards,PF
+Kevin Knox II,Knicks,"SF, PF"
+Carsen Edwards,Celtics,SG
+Tacko Fall,Celtics,C
+Frank Jackson,Pelicans,PG
+Alfonzo McKinnie,Cavaliers,SF
+Chasson Randle,Warriors,PG
+Admiral Schofield,Wizards,SF
+Harry Giles III,Kings,"PF, C"
+Brandon Knight,Pistons,"PG, SG"
+KZ Okpala,Heat,"SF, PF"
+Dwayne Bacon,Hornets,"SG, SF"
+Devontae Cacok,Lakers,PF
+Luke Kornet,Bulls,"PF, C"
+Jalen Lecque,Suns,PG
+Tremont Waters,Celtics,PG
+Dean Wade,Cavaliers,PF
+Dennis Smith Jr.,Knicks,PG
+Anfernee Simons,Trail Blazers,"PG, SG"
+Vincent Poirier,Celtics,C
+Jacob Evans,Timberwolves,"PG, SG, SF"
+Donta Hall,Nets,"PF, C"
+Caleb Swanigan,Trail Blazers,"PF, C"
+Isaiah Thomas,Wizards,PG
+Johnathan Williams,Wizards,C
+Cristiano Felicio,Bulls,C
+Darius Garland,Cavaliers,PG
+Gabe Vincent,Heat,PG
+Allonzo Trier,Knicks,PG
+Allen Crabbe,Timberwolves,SG
+Jeremy Pargo,Warriors,PG
+Melvin Frazier Jr.,Magic,"SG, SF"
+Jonah Bolden,Suns,PF
+Tyler Cook,Nuggets,PF
+BJ Johnson,Magic,"SG, SF"
+Bol Bol,Nuggets,C
+Joe Chealey,Hornets,PG
+Vic Law,Magic,SF
+D.J. Wilson,Bucks,PF
+Ryan Anderson,Rockets,C
+Khyri Thomas,Pistons,SG
+Stanton Kidd,Jazz,SF
+Devon Hall,Thunder,SG
+Deonte Burton,Thunder,SG
+Josh Reaves,Mavericks,SG
+Norvel Pelle,76ers,"PF, C"
+Sekou Doumbouya,Pistons,"SF, PF"
+Zhaire Smith,76ers,"SG, SF"
+Zach Norvell Jr.,Warriors,SG
+Quinndary Weatherspoon,Spurs,SG
+Jarred Vanderbilt,Timberwolves,"SF, PF"
+Justin Patton,Pistons,C
+Antonius Cleveland,Mavericks,SG
+Chandler Parsons,Hawks,SF
+Marial Shayok,76ers,SF
+Josh Gray,Pelicans,PG
+JR Smith,Lakers,SG
+Justin Wright-Foreman,Jazz,PG
+Ignas Brazdeikis,Knicks,"SF, PF"
+Lance Thomas,Nets,"SF, PF, C"
+Michael Frazier,Rockets,SG
+Kevin Hervey,Thunder,"SF, PF"
+Zylan Cheatham,Pelicans,PF
+Isaiah Roby,Thunder,PF
+Jordan Bone,Pistons,PG
+Shamorie Ponds,Raptors,PG
+Tariq Owens,Suns,PF
+Kyle Guy,Kings,"PG, SG"
+Udonis Haslem,Heat,PF
+Joakim Noah,Clippers,C
+Moses Brown,Trail Blazers,C
+Jared Harper,Knicks,PG
+William Howard,Rockets,SG
